@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "http-server src/ --cors",
-    "test": "karma start --coverage",
+    "test": "karma start ",
     "lint": "eslint . "
   },
   "repository": {

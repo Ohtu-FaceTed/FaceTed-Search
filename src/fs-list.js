@@ -4,14 +4,17 @@ class FsList extends HTMLElement {
         this.data = null;
         this.classifications = null;
         // listen to score updates from question-element
-        const parentDiv = document.getElementById('faceted');
-        parentDiv.addEventListener('updateScores', this.updateScores.bind(this));
+        // bubblegum solution for parent div not loading during testing
+        if (document.getElementById('faceted')) {
+            const parentDiv = document.getElementById('faceted');
+            parentDiv.addEventListener('updateScores', this.updateScores.bind(this));
+        }
     }
 
     updateScores(event) {
         const newData = event.detail;
         this.classifications = this.data.map((item, i) => {
-            const newObj = {...item};
+            const newObj = { ...item };
             newObj.score = newData[i].score;
             return newObj;
         });
@@ -73,7 +76,7 @@ class FsList extends HTMLElement {
 
     renderList() {
         if (!this.shadowRoot) {
-            this.attachShadow({mode: 'open'});
+            this.attachShadow({ mode: 'open' });
         }
         // clear the possible old render
         this.shadowRoot.innerHTML = '';
@@ -113,15 +116,18 @@ class FsList extends HTMLElement {
         this.data = data.filter((item) => item.level === 3);
         // make a deep copy
         this.classifications = this.data.map((item) => {
-            return {...item};
+            return { ...item };
         });
 
         this.renderList();
     }
 
     disconnectedCallback() {
-        const div = document.getElementById('faceted');
-        div.removeEventListener('updateScores', this.updateScores.bind(this));
+        // bubblegum solution for parent div not loading during testing
+        if (document.getElementById('faceted')) {
+            const div = document.getElementById('faceted');
+            div.removeEventListener('updateScores', this.updateScores.bind(this));
+        }
     }
 }
 

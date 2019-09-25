@@ -1,10 +1,15 @@
 class FsDetail extends HTMLElement {
     constructor() {
-        super();
-        this.classification = null;
 
-        const parentDiv = document.getElementById('faceted');
-        parentDiv.addEventListener('showDetails', this.updateDetail.bind(this));
+        super();
+        console.log('constructor')
+        this.classification = null;
+        this.label = '';
+        // bubblegum solution for parent div not loading during testing
+        if (document.getElementById('faceted')) {
+            const parentDiv = document.getElementById('faceted');
+            parentDiv.addEventListener('showDetails', this.updateDetail.bind(this));
+        }
     }
 
     updateDetail(event) {
@@ -47,7 +52,7 @@ class FsDetail extends HTMLElement {
 
     render() {
         if (!this.shadowRoot) {
-            this.attachShadow({mode: 'open'});
+            this.attachShadow({ mode: 'open' });
         }
         // clear the possible old render
         this.shadowRoot.innerHTML = '';
@@ -63,8 +68,11 @@ class FsDetail extends HTMLElement {
     }
 
     disconnectedCallback() {
-        const parentDiv = document.getElementById('faceted');
-        parentDiv.removeEventListener('showDetails', this.updateDetail.bind(this));
+        // bubblegum solution for parent div not loading during testing
+        if (document.getElementById('faceted')) {
+            const parentDiv = document.getElementById('faceted');
+            parentDiv.removeEventListener('showDetails', this.updateDetail.bind(this));
+        }
     }
 }
 customElements.define('fs-detail', FsDetail);
