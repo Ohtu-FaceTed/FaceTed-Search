@@ -101,7 +101,7 @@ class TkValinta extends PolymerElement {
     }
 
     addEventListeners() {
-        window.addEventListener('tk-luokkahaku-luokka', (e) => {
+        window.addEventListener('tkshowdetail', (e) => {
             console.log(e.detail);
             this.shadowRoot.querySelector('.tk-valinta-body').style.visibility = 'visible';
             this.set('class', [e.detail]);

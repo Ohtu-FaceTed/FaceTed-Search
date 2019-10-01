@@ -134,11 +134,12 @@ class FsList extends HTMLElement {
                 if (c.explanatoryNotes[0].includesAlso) {
                     item.includesAlso = c.explanatoryNotes[0].includesAlso[c.explanatoryNotes[0].includesAlso.length-1];
                 }
-                window.dispatchEvent(new CustomEvent('tk-luokkahaku-luokka', {
+                this.dispatchEvent(new CustomEvent('tkshowdetail', {
                     detail: item,
                     bubbles: true,
                     composed: true,
                 }));
+                console.log('klik')
             });
         });
     }
