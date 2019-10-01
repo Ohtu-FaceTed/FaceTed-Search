@@ -7,11 +7,10 @@
     "doc": "doc"
   },
   "scripts": {
-    "start": "http-server src/ --cors",
-    "production": "http-server src/ -p 80 --cors",
+    "start": "polymer serve",
+    "production": "polymer serve --port 80",
     "test": "karma start",
-    "lint": "eslint . --fix",
-    "botnet": "polymer serve"
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
