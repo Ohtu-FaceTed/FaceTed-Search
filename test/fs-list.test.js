@@ -36,7 +36,7 @@ describe('List element test suite', () => {
 
     it('sends detail event on click', async () => {
         const eventspy = sinon.spy();
-        elem.addEventListener('showDetails', eventspy);
+        elem.addEventListener('tk-luokkahaku-luokka', eventspy);
 
         const li = elem.shadowRoot.querySelector('li');
         li.click();
