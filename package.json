@@ -10,7 +10,8 @@
     "start": "http-server src/ --cors",
     "production": "http-server src/ -p 80 --cors",
     "test": "karma start",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "botnet": "polymer serve"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,16 @@
     "url": "https://github.com/Ohtu-FaceTed/FaceTed-Search/issues"
   },
   "homepage": "https://github.com/Ohtu-FaceTed/FaceTed-Search#readme",
-  "dependencies": {},
+  "dependencies": {
+    "polymer-cli": "^1.9.11",
+    "@polymer/iron-input": "^3.0.1",
+    "@polymer/iron-list": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-styles": "^3.0.1",
+    "@polymer/polymer": "^3.0.0",
+    "gulp": "^4.0.0"
+  },
   "devDependencies": {
     "@open-wc/testing": "^2.3.4",
     "@open-wc/testing-karma": "3.1.13",
@@ -33,10 +43,12 @@
     "eslint-plugin-jasmine": "^2.10.1",
     "http-server": "^0.11.1",
     "karma": "^4.3.0",
+    "deepmerge": "^4.0.0",
     "karma-cli": "^2.0.0",
     "lit-html": "^1.1.2",
     "sinon": "^7.5.0",
     "webpack": "^4.41.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "ajv": "^6.10.2"
   }
 }

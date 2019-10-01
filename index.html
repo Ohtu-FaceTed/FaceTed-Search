@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8" />
+    <title>FaceTed-Search</title>
+    <script type="module" src="src/fs-list.js"></script>
+    <script type="module" src="src/fs-detail.js"></script>
+    <script type="module" src="src/fs-question.js"></script>
+    <script type="module" src="src/tk-valinta.js"></script>
+    <style>
+      .all {
+        color: black;
+        font-family: sans-serif;
+        font-size: 1em;
+        line-height: 1.5em;
+        padding-left: 30px;
+      }
+      .selected {
+        position: fixed;
+        display: inline-block;
+        width: 500px;
+        padding-right: 25px;
+        padding-left: 15px;
+        font-size: 1em;
+        z-index: 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Hello, world!</h1>
+    <div id="faceted">
+      <fs-question class="all"></fs-question>
+      <fs-list class="all"></fs-list>
+      <div class="all selected">
+        <tk-valinta language="fi"></tk-valinta>
+      </div>
+    </div>
+  </body>
+</html>

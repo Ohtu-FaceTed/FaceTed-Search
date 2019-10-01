@@ -11,7 +11,7 @@ class FsQuestion extends HTMLElement {
         return `
         <div class='comp'>
           <p class='question'>
-            Onko rakennuksessa <span>${this.question ? this.question.attribute_name : 'Error no. 992834758'}</span>?
+            Onko rakennuksessa <span>${this.question.attribute_name}</span>?
           </p>
           <div class='button-container'>
             <button class="ok">Kyllä</button>

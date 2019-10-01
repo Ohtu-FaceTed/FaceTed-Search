@@ -86,7 +86,6 @@ class FsList extends HTMLElement {
     `;
     }
 
-    // native fetch for getting json
     async fetchData() {
         return await fetch(
             'https://data.stat.fi/api/classifications/v1/classifications/rakennus_1_20180712/classificationItems?content=data&meta=max&lang=fi'
@@ -100,7 +99,7 @@ class FsList extends HTMLElement {
         // clear the possible old render
         this.shadowRoot.innerHTML = '';
 
-        // stamp template to DOM
+        // construct template and render to DOM
         const temp = document.createElement('template');
         temp.innerHTML = this.style + this.template;
         this.shadowRoot.appendChild(temp.content.cloneNode(true));
@@ -116,15 +115,30 @@ class FsList extends HTMLElement {
             li.style.background = odd ? '#bbbbbb' : '#dddddd';
             odd = !odd;
             li.addEventListener('click', (e) => {
-                const classification = this.classifications.find((item) => {
+                const c = this.classifications.find((item) => {
                     return item.code === li.id;
                 });
-                const event = new CustomEvent('showDetails', {
-                    detail: classification,
+                const item = {
+                    name: c.classificationItemNames[0].name,
+                    keywords: c.classificationIndexEntry[0].text.join(', '),
+                    code: c.code,
+                    visible: true,
+                    note: c.explanatoryNotes[0].generalNote[c.explanatoryNotes[0].generalNote.length-1],
+                };
+                if (c.explanatoryNotes[0].excludes) {
+                    item.excludes = c.explanatoryNotes[0].excludes[c.explanatoryNotes[0].excludes.length-1];
+                }
+                if (c.explanatoryNotes[0].includes) {
+                    item.includes = c.explanatoryNotes[0].includes[c.explanatoryNotes[0].includes.length-1];
+                }
+                if (c.explanatoryNotes[0].includesAlso) {
+                    item.includesAlso = c.explanatoryNotes[0].includesAlso[c.explanatoryNotes[0].includesAlso.length-1];
+                }
+                window.dispatchEvent(new CustomEvent('tk-luokkahaku-luokka', {
+                    detail: item,
                     bubbles: true,
                     composed: true,
-                });
-                this.dispatchEvent(event);
+                }));
             });
         });
     }
