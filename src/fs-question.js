@@ -68,10 +68,13 @@ class FsQuestion extends HTMLElement {
 
     // get the preliminary question
     async fetchQuestion() {
+        // remove cookie left from last session
+        document.cookie = 'session' + '=;expires=Thu, 07 May 1995 23:59:59 GMT;';
         const url = `${baseUrl}/question`;
         return await fetch(url, {
             method: 'GET',
             mode: 'cors',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -89,6 +92,7 @@ class FsQuestion extends HTMLElement {
                 'Content-Type': 'application/json',
             },
             mode: 'cors',
+            credentials: 'include',
             body: JSON.stringify(answer),
         }).then((response) => response.json());
     }
