@@ -10,7 +10,7 @@
     "start": "http-server src/ --cors",
     "production": "http-server src/ -p 80 --cors",
     "test": "karma start",
-    "lint": "eslint . --fix"
+    "lint": "eslint src/ test/ --fix"
   },
   "repository": {
     "type": "git",

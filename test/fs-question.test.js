@@ -20,18 +20,26 @@ describe('question test', async () => {
         expect(element.question).to.be.not.equal(null);
     });
 
-    it('has two answer buttons', async () => {
+    it('has three answer buttons', async () => {
         const buttons = element.shadowRoot.querySelectorAll('button');
 
-        expect(buttons.length).to.equal(2);
+        expect(buttons.length).to.equal(3);
     });
 
-    it('event listener added to button', async () => {
+    it('event listener added to buttons', async () => {
         const okButton = element.shadowRoot.querySelector('.ok');
-        const buttonClickSpy = sinon.spy(okButton, 'addEventListener');
+        const okSpy = sinon.spy(okButton, 'addEventListener');
+
+        const noButton = element.shadowRoot.querySelector('.no');
+        const noSpy = sinon.spy(noButton, 'addEventListener');
+
+        const skipButton = element.shadowRoot.querySelector('.skip');
+        const skipSpy = sinon.spy(skipButton, 'addEventListener');
         element.addEventListeners();
 
-        expect(buttonClickSpy.calledWith('click')).to.equal(true);
+        expect(okSpy.calledWith('click')).to.equal(true);
+        expect(noSpy.calledWith('click')).to.equal(true);
+        expect(skipSpy.calledWith('click')).to.equal(true);
     });
 
     it('it should dispatch event', async () => {
@@ -66,10 +74,13 @@ describe('question test', async () => {
         expect(element.question.attribute_name).to.be.not.equal(question);
     });
 
-    it('can update question', async () => {
-        element.question = 'foo';
+    it('provides new question with skip', async () => {
+        const question = element.question.attribute_name;
+        const skipButton = element.shadowRoot.querySelector('.skip');
+        skipButton.click();
+        await sleep(1500);
 
-        expect(element.question).to.equal('foo');
+        expect(element.question.attribute_name).to.be.not.equal(question);
     });
 });
 

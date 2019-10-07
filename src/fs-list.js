@@ -59,11 +59,9 @@ class FsList extends HTMLElement {
         // map classifications to list items
         let classificationsToShow = this.classifications.slice(0, 10);
         classificationsToShow = classificationsToShow.map((item) => {
-            return `<li id="${item.code}">
-                        ${item.code} ${item.classificationItemNames[0].name} ${
-    item.score ? `Score: ${Number(item.score).toFixed(2)}` : ''
-}
-                    </li>`;
+            return `<li id="id${item.code}">${item.code} ${item.classificationItemNames[0].name} ${item.score ?
+                `Score: ${Number(item.score).toFixed(2)}` :
+                ''}</li>`;
         });
         const lis = classificationsToShow.join('');
         return lis;
@@ -74,19 +72,22 @@ class FsList extends HTMLElement {
     <style>
     div {
         border: 1px solid #c5c5c5;
-        width: 30%;
+        width: auto;
     }
     ul {
           list-style: none;
+          padding 1px 1px 1px 1px;
+          margin 1px 1px 1px 1px;
         }
     li {
-           margin: 5px 5px 5px -25px;
+           padding: 1px 1px 1px 1px;
+           margin: 1px 1px 1px -30px;
     }
     </style>
     `;
     }
 
-    // native fetch for getting json
+    // Fetch classifications from stat.fi API
     async fetchData() {
         return await fetch(
             'https://data.stat.fi/api/classifications/v1/classifications/rakennus_1_20180712/classificationItems?content=data&meta=max&lang=fi'
@@ -116,11 +117,29 @@ class FsList extends HTMLElement {
             li.style.background = odd ? '#bbbbbb' : '#dddddd';
             odd = !odd;
             li.addEventListener('click', (e) => {
-                const classification = this.classifications.find((item) => {
-                    return item.code === li.id;
+                const c = this.classifications.find((item) => {
+                    return item.code === li.id.slice(2, 6);
                 });
+                const item = {
+                    name: c.classificationItemNames[0].name,
+                    keywords: c.classificationIndexEntry[0].text.join(', '),
+                    code: c.code,
+                    note: c.explanatoryNotes[0].generalNote[c.explanatoryNotes[0].generalNote.length-1],
+                };
+                const ex = c.explanatoryNotes[0].excludes;
+                if (ex && ex.join('').replace(',', '').trim()) {
+                    item.excludes = ex;
+                }
+                const inc = c.explanatoryNotes[0].includes;
+                if (inc && inc.join('').replace(',', '').trim()) {
+                    item.includes = inc;
+                }
+                const incA = c.explanatoryNotes[0].includesAlso;
+                if (incA && incA.join('').replace(',', '').trim()) {
+                    item.includesAlso = incA;
+                }
                 const event = new CustomEvent('showDetails', {
-                    detail: classification,
+                    detail: item,
                     bubbles: true,
                     composed: true,
                 });

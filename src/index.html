@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="fi">
-  <head>
-    <meta charset="utf-8" />
-    <title>FaceTed-Search</title>
-    <script type="module" src="fs-list.js"></script>
-    <script type="module" src="fs-detail.js"></script>
-    <script type="module" src="fs-question.js"></script>
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <title>FaceTed-Search</title>
+        <script type="module" src="fs-list.js"></script>
+        <script type="module" src="fs-detail.js"></script>
+        <script type="module" src="fs-question.js"></script>
+        <style>
+            main {
+                max-width: 70ch;
+                padding: 2ch;
+                margin: auto;
 
-  <body>
-    <h1>Hello, world!</h1>
-    <div id="faceted">
-      <fs-question></fs-question>
-      <fs-list></fs-list>
-      <fs-detail></fs-detail>
-    </div>
-  </body>
+                color: black;
+                font-family: sans-serif;
+                font-size: 1em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <h1>Akinator</h1>
+            <div id="faceted">
+                <fs-question></fs-question>
+                <fs-list></fs-list>
+                <fs-detail></fs-detail>
+            </div>
+        </main>
+    </body>
 </html>

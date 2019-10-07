@@ -10,21 +10,17 @@ function sleep(ms) {
 }
 
 let elem;
+let apiData;
 
 describe('List element test suite', () => {
     before(async () => {
         elem = await fixture('<fs-list></fs-list>');
+        await sleep(1500);
+        apiData = elem.data;
     });
 
-    it('is hidden until there are results to show', () => {
-        expect(elem.hidden).to.be.equal(true);
-    });
-
-    it('finds data from api', async () => {
-        expect(elem.data).to.be.equal(null);
-        await sleep(1000);
-
-        expect(elem.data).to.be.not.equal(null);
+    it('has fetched data', () => {
+        expect(elem.data).to.not.equal(null);
     });
 
     it('renders 10 list items after fetch', () => {
@@ -45,9 +41,8 @@ describe('List element test suite', () => {
     });
 
     it('updates list based on scores', async () => {
-        // fetch and construct some test data
-        let data = await elem.fetchData();
-        data = data.filter((item) => item.level === 3 && item.code !== '1919');
+        // construct some test data
+        let data = apiData.filter((item) => item.level === 3 && item.code !== '1919');
         data = data.map((item, i) => {
             return {
                 class_name: item.classificationItemNames[0].name,
@@ -65,6 +60,6 @@ describe('List element test suite', () => {
 
         // 1912 is the last one on the list
         // so it has highest score so it should be the first one displayed
-        expect(li.id).to.equal('1912');
+        expect(li.id).to.equal('id1912');
     });
 });
