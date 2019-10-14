@@ -3,10 +3,10 @@ node_js:
   - lts/*
 
 before_install:
-  npm i -g npm@6.9.0
+  - npm i -g npm@6.9.0
 
 after_succes:
-  echo "ajlsdnalhf"
-  echo "vitun paska toimi kiitos"
-  cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  echo "asd"
+  - echo "ajlsdnalhf"
+  - echo "vitun paska toimi kiitos"
+  - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - echo "asd"
