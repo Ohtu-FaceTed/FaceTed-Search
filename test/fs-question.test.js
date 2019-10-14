@@ -13,15 +13,16 @@ describe('question test', async () => {
         element = await fixture('<fs-question></fs-question');
     });
 
-   it('gets initial question from backend', async () => {
+    it('gets initial question from backend', async () => {
         expect(element.question).to.be.equal(null);
         await sleep(6000);
-        
+
         expect(element.question).to.be.not.equal(null);
     }).timeout(7000);
 
     it('has three answer buttons', () => {
         const buttons = element.shadowRoot.querySelectorAll('button');
+
         expect(buttons.length).to.equal(3);
     });
 
