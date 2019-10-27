@@ -6,13 +6,17 @@ class FsQuestion extends HTMLElement {
         this.question = null;
         this.reply = null;
         this.qNumber = 1;
+        this.overlay = null;
     }
 
     get template() {
         return `
         <div class="comp">
           <p class="question">${this.qNumber}. ${this.questionString}</p>
-          <div class="button-container">
+          <div id="overlay">
+            <div class="loader loader-default is-active"></div> 
+          </div>
+          <div class="button-container">   
             <button class="ok">Kyllä</button>
             <button class="no">Ei</button>
             <button class="skip">Ohita</button>
@@ -65,6 +69,59 @@ class FsQuestion extends HTMLElement {
             background-color: #edf3f8;
             border-color: #6c757d;
           }
+          .loader {
+            color:#fff;
+            position: fixed;
+            box-sizing: border-box;
+            left: -9999px;
+            top: -9999px;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            z-index: 999999
+        }
+        .loader:after,
+        .loader:before { 
+            box-sizing: border-box;
+            display: none
+        }
+        .loader.is-active { 
+            background-color:rgba(0,0,0,.85);
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0
+        }
+        .loader.is-active:after,
+        .loader.is-active:before { 
+            display:block
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0) }
+            to {transform: rotate(359deg) }
+        }
+        @keyframes blink {
+            0% { opacity:.5 }
+            to { opacity:1 }
+        }
+        .loader-default:after { 
+            content: "";
+            position: fixed;
+            width: 48px;
+            height: 48px;
+            border: 8px solid #fff;
+            border-left-color: transparent;
+            border-radius: 50%;
+            top: calc(50% - 24px);
+            left: calc(50% - 24px);
+            animation: rotation 1s linear infinite
+        }
+        .loader-default[data-half]:after { 
+            border-right-color: transparent
+        }
+        .loader-default[data-inverse]:after { 
+            animation-direction:reverse
+        }
         </style>
         `;
     }
@@ -123,7 +180,7 @@ class FsQuestion extends HTMLElement {
         this.dispatchEvent(event);
     }
 
-    async connectedCallback() {
+    async connectedCallback() {       
         const data = await this.fetchQuestion();
         this.question = data;
 
@@ -141,6 +198,8 @@ class FsQuestion extends HTMLElement {
         this.shadowRoot.appendChild(temp.content.cloneNode(true));
 
         this.addEventListeners();
+        this.overlay = this.shadowRoot.getElementById('overlay');
+        this.overlay.style.display = 'none';
     }
 
     // handles the logic for responding to user input
@@ -152,10 +211,15 @@ class FsQuestion extends HTMLElement {
         };
         if (response === 'previous') {
             this.qNumber--;
+            // activates loader
+            this.overlay.style.display = 'block';
             this.reply = await this.getPrevious();
+            this.overlay.style.display = 'none';
         } else {
             this.qNumber++;
+            this.overlay.style.display = 'block';
             this.reply = await this.postAnswer(answer);
+            this.overlay.style.display = 'none';
         }
         if (this.qNumber !== 1) {
             this.question = this.reply.new_question;
