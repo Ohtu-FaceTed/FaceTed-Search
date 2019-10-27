@@ -63,7 +63,7 @@ class FsResult extends HTMLElement {
         const classes = this.classifications.slice(0, 10);
         const rows = classes.map((item, i) => {
             return `
-            <tr id="id${item.code}">
+            <tr class="resultRow">
                 <td class="itemInfo" id="id${item.code}">${item.code} ${item.classificationItemNames[0].name}</td>
                 <td class="itemScore" style="background-color:${this.chooseColor(item)}">
                     ${(item.score * 100).toFixed(0)}%
@@ -125,7 +125,8 @@ class FsResult extends HTMLElement {
         border-width: 1px;
         border-color: black;
         border-radius: 4px;
-        max-width: 2ch;
+        max-width: 3ch;
+        min-width: 3ch;
         overflow: auto;
     }
     .itemInfo {

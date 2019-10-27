@@ -58,7 +58,7 @@ describe('List element test suite', () => {
             detail: data,
         };
         elem.updateScores(event);
-        const firstRow = elem.shadowRoot.querySelector('tr');
+        const firstRow = elem.shadowRoot.querySelector('td');
 
         // 0512 is the last one on the list
         // so it has highest score so it should be the first one displayed
