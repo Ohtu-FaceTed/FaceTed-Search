@@ -180,7 +180,7 @@ class FsQuestion extends HTMLElement {
         this.dispatchEvent(event);
     }
 
-    async connectedCallback() {       
+    async connectedCallback() {
         const data = await this.fetchQuestion();
         this.question = data;
 
