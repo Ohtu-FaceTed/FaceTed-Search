@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="fi">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>FaceTed-Search</title>
-        <script type="module" src="fs-result.js"></script>
-        <script type="module" src="fs-detail.js"></script>
-        <script type="module" src="fs-question.js"></script>
-        <style>
-            main {
-                max-width: 70ch;
-                padding: 2ch;
-                margin: auto;
-                color: black;
-                font-family: sans-serif;
-                font-size: 1em;
-            }
-            body {
-                background: rgb(61, 60, 60);
-            }
-        </style>
-    </head>
 
-    <body>
-        <main>
-            <div id="faceted">
-                <fs-question language="fi"></fs-question>
-                <fs-result language="fi"></fs-result>
-                <fs-detail language="fi"></fs-detail>
-            </div>
-        </main>
-    </body>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaceTed-Search</title>
+    <script type="module" src="fs-result.js"></script>
+    <script type="module" src="fs-detail.js"></script>
+    <script type="module" src="fs-question.js"></script>
+    <style>
+        main {
+            max-width: 70ch;
+            padding: 2ch;
+            margin: auto;
+            color: black;
+            font-family: sans-serif;
+            font-size: 1em;
+        }
+
+        body {
+            background: rgb(61, 60, 60);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="faceted">
+            <fs-question id="q" language="fi"></fs-question>
+            <fs-result id="r" language="fi"></fs-result>
+            <fs-detail id="d" language="fi"></fs-detail>
+        </div>
+    </main>
+    <script type="text/javascript">
+        function getlang() {
+            var language = window.navigator.userLanguage || window.navigator.language;
+            if (language === 'en-US' || language === 'en-GB') {
+                language = 'en';
+            }
+            if (language === 'en' || language === 'sv' || language === 'fi') {
+                document.getElementById("r").setAttribute('language', language);
+                document.getElementById("q").setAttribute('language', language);
+                document.getElementById("d").setAttribute('language', language);
+            }
+        }
+        window.onload = getlang();
+    </script>
+</body>
+
 </html>
