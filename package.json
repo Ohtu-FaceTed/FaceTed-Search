@@ -27,7 +27,7 @@
   "dependencies": {},
   "devDependencies": {
     "@open-wc/testing": "^2.3.4",
-    "@open-wc/testing-karma": "3.1.13",
+    "@open-wc/testing-karma": "4.0.9",
     "coveralls": "^3.0.7",
     "deepmerge": "^4.1.1",
     "eslint": "^6.4.0",
@@ -35,7 +35,7 @@
     "eslint-plugin-cypress": "^2.6.1",
     "eslint-plugin-jasmine": "^2.10.1",
     "http-server": "0.9.0",
-    "karma": "^4.3.0",
+    "karma": "^6.4.1",
     "karma-cli": "^2.0.0",
     "lit-html": "^1.1.2",
     "sinon": "^7.5.0",
